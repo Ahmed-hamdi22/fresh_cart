@@ -17,7 +17,7 @@ import ProductDetails from './components/productDetails/ProductDetails';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import CartContextProvider from './context/CartContext';
-import toast, { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 import Orders from './components/Orders/Orders';
 import Address from './components/Adress/Adress';
 
