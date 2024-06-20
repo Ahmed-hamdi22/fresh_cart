@@ -1,10 +1,33 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { HashLoader } from 'react-spinners';
+import { CartContext } from '../../context/CartContext';
+import toast from 'react-hot-toast';
+import Loading from '../loader/Loading';
 
 export default function RecntProducts() {
+  const [isLoad, setIsLoad] = useState(true)
+let {AddtoCart} = useContext(CartContext);
+async function AddProduct(productId) {
+  let response = await AddtoCart(productId);
+  if(response){
+    toast.success('Product added to cart successfully',{
+      duration: 3000,
+      position: 'top-right',
+
+    });
+  }else{
+    toast.error('Failed to add product to cart',{
+      duration: 3000,
+      position: 'top-right',
+    }
+    );
+  }
+
+}
+
   function getRecnt() {
         return   axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
 
@@ -13,15 +36,18 @@ export default function RecntProducts() {
   {queryKey:['recentProduct'],
     queryFn:getRecnt,
     staleTime:80000,
-   
+    
+
   });
+
   if(isLoading){
     return <div className="py-8 w-full justify-center flex">
-       <HashLoader color='green'/>
+       < Loading/>
     </div>
   }
 
   // const [RecntProduct, setRecntProduct] = useState([]);
+
   //   function getRecntProuct() {
   //       axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
   //      .then(({data})=>{
@@ -29,12 +55,16 @@ export default function RecntProducts() {
   //       }).catch((err)=>{
   //       // console.log(err);
   //      })
-  //       }
+  //       }z
      
   //   useEffect(() => {
       
   //    getRecntProuct();
   //   }, []);
+
+  
+ 
+ 
   return (
     <div className='row'>
       {
@@ -51,7 +81,7 @@ export default function RecntProducts() {
 
               </div>
               </Link>
-              <button className='btn'>Add to cart</button>
+              <button onClick={()=> AddProduct(product.id)} className='btn'>Add to cart</button>
 
           </div>
         </div>
@@ -59,25 +89,8 @@ export default function RecntProducts() {
      
     </div>
   )
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

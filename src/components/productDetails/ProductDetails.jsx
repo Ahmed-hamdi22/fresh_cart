@@ -5,14 +5,34 @@ import { Link, useParams } from 'react-router-dom'
 import Slider from "react-slick";
 // import Loading from '../loader/Loading';
 import HashLoader from "react-spinners/HashLoader";
-
+import { CartContext } from '../../context/CartContext';
+import { useContext } from 'react';
+import toast from 'react-hot-toast';
+import Loading from '../loader/Loading';
 
 
 export default function ProductDetails() {
 const [ProductDetails, setProductDetails] = useState(null);
 const [RelatedProuct, setRelatedProuct] = useState([]);
     let {id ,category}=useParams();
-    console.log(id)
+
+    let {AddtoCart,setCartCount} = useContext(CartContext);
+    async function AddProduct(productId) {
+      let response =await AddtoCart(productId);
+      if(response){
+        toast.success('Product added to cart successfully',{
+          duration: 3000,
+          position: 'top-right',
+        });
+      }else{
+        toast.error('Failed to add product to cart',{
+          duration: 3000,
+          position: 'top-right',
+        }
+        );
+      }
+      console.log(response);
+    }
     function getProuctDetails(id) {
         axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
         .then(({data})=>{
@@ -46,9 +66,9 @@ const [RelatedProuct, setRelatedProuct] = useState([]);
         slidesToShow: 1,
         slidesToScroll: 1,
       };
-    //   if(!ProductDetails){
-    //         return <Loading/>
-    //   }
+      if(!ProductDetails){
+            return <Loading/>
+      }
       
   return (  
    
@@ -73,7 +93,7 @@ const [RelatedProuct, setRelatedProuct] = useState([]);
             <span>{ProductDetails?.ratingsAverage}<i className='fas fa-star text-yellow-400'></i></span>
 
           </div>
-                          <button className='bg-green-600 w-full rounded-md p-4 m-2'>Add to cart</button>
+                          <button onClick={()=> AddProduct(product.id)} className='bg-green-600 w-full rounded-md p-4 m-2'>Add to cart</button>
 
           </div>
 </div>
@@ -93,8 +113,9 @@ const [RelatedProuct, setRelatedProuct] = useState([]);
             <span>{product.ratingsAverage}<i className='fas fa-star text-yellow-400'></i></span>
 
           </div>
-          <button className='btn'>Add to cart</button>
           </Link>
+          <button className='btn' onClick={()=> AddProduct(product.id)}>Add to cart</button>
+
               </div>
      )
     }

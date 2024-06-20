@@ -17,13 +17,19 @@ import ProductDetails from './components/productDetails/ProductDetails';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import CartContextProvider from './context/CartContext';
-CartContextProvider
+import toast, { Toaster } from 'react-hot-toast';
+import Orders from './components/Orders/Orders';
+import Address from './components/Adress/Adress';
+
+
 let router = createBrowserRouter([
   {path:'' , element:<Layout/> , children:[
     {index:true , element:<ProtectedRoute> <Home/></ProtectedRoute>},
     {path:'products' , element:<ProtectedRoute><Products/></ProtectedRoute>},
     {path:'cart' , element:<ProtectedRoute><Cart/></ProtectedRoute>},
     {path:'brands' , element:<ProtectedRoute><Brands/></ProtectedRoute>},
+    {path:'allorders' , element:<ProtectedRoute><Orders/></ProtectedRoute>},
+    {path:'address/:cartId' , element:<ProtectedRoute><Address/></ProtectedRoute>},
     {path:'categories' , element:<ProtectedRoute><Categories/></ProtectedRoute>},
     {path:'ProductDetails/:id/:category' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
 
@@ -42,6 +48,8 @@ function App() {
   <UserContextProvider>
   <ConterContextProvider>
 <RouterProvider router={router}></RouterProvider>
+<Toaster />
+
  </ConterContextProvider>
 </UserContextProvider>
 <ReactQueryDevtools/>
