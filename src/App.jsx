@@ -20,6 +20,11 @@ import CartContextProvider from './context/CartContext';
 import  { Toaster } from 'react-hot-toast';
 import Orders from './components/Orders/Orders';
 import Address from './components/Adress/Adress';
+import ResetPassword from './components/resetPassword/ResetPassword';
+import ResetCode from './components/resetPassword/ResetCode';
+import UpdatePasswoed from './components/resetPassword/UpdatePasswoed';
+import WishlistProvider from './context/WishlistContext';
+import Wishlist from './components/wishlist/Wishlist';
 
 
 let router = createBrowserRouter([
@@ -32,6 +37,11 @@ let router = createBrowserRouter([
     {path:'address/:cartId' , element:<ProtectedRoute><Address/></ProtectedRoute>},
     {path:'categories' , element:<ProtectedRoute><Categories/></ProtectedRoute>},
     {path:'ProductDetails/:id/:category' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
+    {path:'restpass',element:<ResetPassword/>},
+    {path:'restcode',element:<ResetCode/>},
+    {path:'updatepass',element:<UpdatePasswoed/>},
+    {path:"wishlist",element:<Wishlist/>},
+
 
     {path:'login' , element:<Login/>},
     {path:'register' , element:<Register/>},
@@ -47,17 +57,16 @@ function App() {
     <ConterContextProvider>
   <UserContextProvider>
   <ConterContextProvider>
+  {/* <WishlistProvider> */}
 <RouterProvider router={router}></RouterProvider>
 <Toaster />
-
+{/* </WishlistProvider> */}
  </ConterContextProvider>
 </UserContextProvider>
 <ReactQueryDevtools/>
 </ConterContextProvider>
   </QueryClientProvider>
    </CartContextProvider> 
-
- 
 }
 
 export default App

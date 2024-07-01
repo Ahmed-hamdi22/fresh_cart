@@ -6,10 +6,14 @@ import { HashLoader } from 'react-spinners';
 import { CartContext } from '../../context/CartContext';
 import toast from 'react-hot-toast';
 import Loading from '../loader/Loading';
+// import { wishlistContext } from '../../context/WishlistContext';
 
 export default function RecntProducts() {
+  // const {addProductToWishlist} = useContext(wishlistContext);
+  // const { addToCart, addToWishlist, removeWishlistItem, getWishlistItems,setCart,cart, setWishlist, wishlist } = useContext(CartContext);
+
   const [isLoad, setIsLoad] = useState(true)
-let {AddtoCart} = useContext(CartContext);
+let {AddtoCart,addToWishlist, removeWishlistItem, getWishlistItems,setWishlist, wishlist } = useContext(CartContext);
 async function AddProduct(productId) {
   let response = await AddtoCart(productId);
   if(response){
@@ -27,12 +31,47 @@ async function AddProduct(productId) {
   }
 
 }
+useEffect(() => {
+  getWishlistItems().catch(error => {
+    console.error('Error fetching wishlist items:', error);
+  });
+}, [getWishlistItems]);
+
+const toggleWishlist = (productId) => {
+  if (wishlist.some(item => item.id === productId)) {
+    removeWishlistItem(productId)
+      .then(response => {
+        if (response.data.status === "success") {
+          toast.error('Product removed from Wishlist', { duration: 2000 });
+        }
+      })
+      .catch(error => {
+        toast.error('An error occurred while removing from Wishlist', { duration: 2000 });
+      });
+  } else {
+    addToWishlist(productId)
+      .then(response => {
+        if (response.data?.status === "success") {
+          toast.success('Product added to Wishlist', { duration: 2000 });
+        }
+      })
+      .catch(error => {
+        toast.error('An error occurred while adding to Wishlist', { duration: 2000 });
+      });
+  }
+};
+
+const isProductInWishlist = (productId) => {
+  return wishlist.some(item => item.id === productId);
+};
+
+
 
   function getRecnt() {
         return   axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
 
   }
- let  {data ,isError ,error, isLoading ,isFetching}= useQuery(
+ let  {data ,isError ,error, isLoading ,isFetching,}= useQuery(
   {queryKey:['recentProduct'],
     queryFn:getRecnt,
     staleTime:80000,
@@ -70,17 +109,22 @@ async function AddProduct(productId) {
       {
         data?.data.data.map((product, index) => 
           <div key={index} className="w-1/6 px-5">
-          <div className="product py-4">
+          <div className="product py-5">
             <Link to={`/ProductDetails/${product.id}/${product.category.name}`}>
             <img className='w-full' src={product.imageCover} alt={product.title}/>
             <span className='block text-green-600 font-light'>{product.category.name}</span>
             <h3 className='text-lg font-normal text-gray-800 mb-4'>{product.title.split(' ').slice(0,2).join(' ')}</h3>
+             
+              </Link>
               <div className="flex justify-between">
                 <span>{product.price}$</span>
                 <span>{product.ratingsAverage}<i className='fas fa-star text-yellow-400'></i></span>
-
+                <i onClick={() => toggleWishlist(product.id)}
+                  className={`fa-heart cursor-pointer text-2xl mt-1  
+                    ${isProductInWishlist(product.id) ? 'fa-solid text-red-600' : 'fa-regular'}`}></i>
+            
               </div>
-              </Link>
+              
               <button onClick={()=> AddProduct(product.id)} className='btn'>Add to cart</button>
 
           </div>

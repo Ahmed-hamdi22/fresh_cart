@@ -29,7 +29,7 @@ export default function Navbar() {
     navIgate('/login')
    }
   return <>
-<nav className="bg-gray-100 border-gray-200 py-2.5 dark:bg-gray-900 z-80 ">
+<nav className="bg-gray-100 border-gray-200 py-2.5 dark:bg-gray-900 z-80  ">
   <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
 
    
@@ -58,11 +58,11 @@ export default function Navbar() {
             Userlogin !== null ?  
             <>
              <li  className="block py-2 pl-3 pr-4 text-white bg-green-700 rounded lg:bg-transparent lg:text-green-700 lg:p-0 dark:text-white" aria-current="page" ><NavLink to={'/'}> Home </NavLink></li>
-            {/* <li className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"><NavLink to={'/about'}> About </NavLink></li> */}
             <li className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"><NavLink to={'/categories'}> Categories </NavLink></li>
             <li className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"><NavLink to={'/products'}> Products </NavLink></li>                 
-            <li className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"><NavLink to={'/allorders'}> Orders </NavLink></li>                 
-
+            {/* <li className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"><NavLink to={'/allorders'}> Orders </NavLink></li>                  */}
+            <li className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"><NavLink to={'/brands'}> Brands </NavLink></li>                 
+            <li className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"><NavLink to={'/wishlist'}>Wishlist </NavLink></li>                 
               <li className=" block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"><NavLink to={'/cart'}>  <div className="flex"> 
                   <FaCartArrowDown className='text-green-600 mt-1' /><span className='border w-4 h-4 rounded-[50%] text-orange-500 border-orange-600 p-1 items-center justify-center flex'>{cartCount}</span></div>
            </NavLink></li>
@@ -86,8 +86,8 @@ export default function Navbar() {
             <i className='fab fa-facebook mx-2 fa-sm'></i>
             <i className='fab fa-twitter mx-2 fa-sm'></i>
             <i className='fab fa-instagram mx-2 fa-sm'></i>
-            <i className='fab fa-tiktok mx-2 fa-sm'></i>
-            <i className='fab fa-youtube mx-2 fa-sm'></i>
+            {/* <i className='fab fa-tiktok mx-2 fa-sm'></i>
+            <i className='fab fa-youtube mx-2 fa-sm'></i> */}
           </li>
         </ul>
     </div>

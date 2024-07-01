@@ -3,8 +3,6 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import Slider from "react-slick";
-// import Loading from '../loader/Loading';
-import HashLoader from "react-spinners/HashLoader";
 import { CartContext } from '../../context/CartContext';
 import { useContext } from 'react';
 import toast from 'react-hot-toast';
@@ -93,7 +91,7 @@ const [RelatedProuct, setRelatedProuct] = useState([]);
             <span>{ProductDetails?.ratingsAverage}<i className='fas fa-star text-yellow-400'></i></span>
 
           </div>
-                          <button onClick={()=> AddProduct(product.id)} className='bg-green-600 w-full rounded-md p-4 m-2'>Add to cart</button>
+     <button onClick={()=> AddProduct(product.id)} className='bg-green-600 w-full rounded-md p-4 m-2'>Add to cart</button>
 
           </div>
 </div>

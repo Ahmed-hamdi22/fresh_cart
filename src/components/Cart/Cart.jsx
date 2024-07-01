@@ -9,20 +9,11 @@ import Loading from '../loader/Loading';
 import toast from 'react-hot-toast';
 
 
-
-
 export default function Cart() {
   let {UpdateItemCartCount,RemoveItemCartCount,ClearCartcartCount, setCartCount,ClearCart} = useContext(CartContext)
     const [cartDetails, setcartDetails] = useState(null);
       const [isLoading, setIsLoading] = useState(true);
-      
-
-    // async function GetCart() {
-    //  let {data} = await getuserCart();
-    //   console.log(data);
-    //   setcartDetails(data);
-
-    // }
+    
     
     let  headers = {
       token:localStorage.getItem('userToken')
@@ -58,9 +49,10 @@ let {data} = await axios.get(`https://ecommerce.routemisr.com/api/v1/cart`,{
       let {data} = await ClearCart();
       //  console.log(result.data.data);
        setcartDetails(null);
+       setCartCount(0)
+       setIsLoading(false);
          }
 
-  
       async function checkOut() {
         // let {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/orders/checkout-session/642e5663fc6ec80008fc40bf",
         //   {
@@ -95,7 +87,7 @@ let {data} = await axios.get(`https://ecommerce.routemisr.com/api/v1/cart`,{
   {cartDetails?.data.products.length > 0 ?
 
       <button className='bg-red-600 text-white  ms-auto block p-2 rounded-md  ' onClick={ClearAllCart}>clear Cart</button>
-   : <h2 className='text-center my-12 mx-auto'>Your Cart Is Empty </h2>
+   : <h2 className='text-center my-12 mx-auto'>Your Cart Is Empty </h2> 
      }   </div>
    <table className="w-3/4 mx-auto  my-6 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

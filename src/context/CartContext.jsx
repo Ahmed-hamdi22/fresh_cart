@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 export let CartContext = createContext();
 export default function CartContextProvider({children}){
     const [cartCount, setCartCount] = useState(0);
+    let [wishlist ,setWishlist] = useState([]);
 
     
 
@@ -62,7 +63,37 @@ function UpdateItemCartCount(productId ,count) {
  }
  
 
-return<CartContext.Provider value={{ ClearCart,cartCount,getuserCart,setCartCount,AddtoCart ,UpdateItemCartCount,RemoveItemCartCount}}>
+
+ async function addToWishlist(productId) {
+    return axios.post('https://ecommerce.routemisr.com/api/v1/wishlist', { productId: productId },
+         { headers: headers })
+      .then((response) => {
+        setWishlist((userWishlist) => [...userWishlist, response?.data]);
+        return  response ;
+        })
+      .catch((error) => error);
+  }
+
+  async function getWishlistItems() {
+    return axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', { headers: headers })
+      .then((response) =>{
+        setWishlist(response?.data?.data);
+          return response;
+        }
+    )
+      .catch((error) => error);
+  }
+
+  async function removeWishlistItem(productId) {
+    return axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`, { headers: headers })
+      .then((response) => {
+        setWishlist((userWishlist) => userWishlist.filter(item => item.id !== productId));
+      return  response ;
+      })
+      .catch((error) => error);
+  }
+
+return<CartContext.Provider value={{addToWishlist, removeWishlistItem, getWishlistItems,wishlist, ClearCart,cartCount,getuserCart,setCartCount,AddtoCart ,UpdateItemCartCount,RemoveItemCartCount}}>
     {children}
 </CartContext.Provider>
 }
